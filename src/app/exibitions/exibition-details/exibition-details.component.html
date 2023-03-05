@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="row">
+    <div class="card mt-5">
+      <h1>{{ singleExibition.title }}</h1>
+      <h5 class="m-3">
+        {{ singleExibition.location.site }},{{ singleExibition.location.room }}
+      </h5>
+      <h5>{{ singleExibition.description }}</h5>
+      <div class="col-11 d-flex justify-content-end">
+        <button
+          class="btn btn-dark"
+          (click)="showEdit = true"
+          *ngIf="showEdit == false"
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="row d-flex justify-content-center allign-items-center"
+  *ngIf="!showEdit"
+>
+  <div class="col-6" *ngFor="let item of artwork">
+    <div class="card m-2 singleArtwork">
+      <div class="row">
+        <div class="col-6">
+          <h1 (click)="open(item)">{{ item.title }}</h1>
+          <h4>{{ item.author }} - {{ item.beginYear }}-{{ item.endYear }}</h4>
+          <h5>{{ item.medium }}</h5>
+        </div>
+        <div class="col">
+          <img
+            class="mt-3"
+            src="http://localhost:3000/image/{{ item.imageId }}.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="showEdit">
+  <div class="row">
+    <div class="col-6">
+      <input
+        type="text"
+        placeholder="Author"
+        [(ngModel)]="params.filter.author"
+      />
+      <button class="btn btn-dark" (click)="getFilteredArtwork()">
+        Search
+      </button>
+    </div>
+    <div class="col-5 justify-content-end d-flex">
+      <div class="btn btn-dark" (click)="showEdit = false">Done</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of allArtwork">
+            <tr *ngIf="item.exibition_id == -1">
+              <td>{{ item.title }}</td>
+              <td>{{ item.author }}</td>
+              <td>
+                <button class="btn btn-dark" (click)="addArtwork(item)">
+                  Add
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of allArtwork">
+            <tr *ngIf="item.exibition_id == 0">
+              <td>{{ item.title }}</td>
+              <td>{{ item.author }}</td>
+              <td>
+                <button class="btn btn-dark" (click)="deleteArtWork(item)">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

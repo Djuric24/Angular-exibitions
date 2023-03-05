@@ -1,0 +1,38 @@
+<div class="row d-flex allign-items-center justify-content-center mt-5">
+  <div class="col-6">
+    <form [formGroup]="forma">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" formControlName="title" />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea
+          type="text"
+          class="form-control"
+          formControlName="description"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <select (change)="setLocation($event)" class="form-select">
+          <option *ngFor="let item of locations" value="{{ item._id }}">
+            {{ item.site }} {{ item.room }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-11 d-flex justify-content-end">
+    <button
+      type="submit"
+      class="btn btn-dark"
+      (click)="addExibition()"
+      [disabled]="!this.forma.valid || !this.location"
+    >
+      Add
+    </button>
+  </div>
+</div>

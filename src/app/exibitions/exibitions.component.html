@@ -1,0 +1,7 @@
+<div class="row" *ngFor="let item of allExibitions">
+  <div class="card m-3">
+    <h1 [routerLink]="[item._id]" class="titleButton">{{ item.title }}</h1>
+    <h5 class="m-3">{{ item.location.site }},{{ item.location.room }}</h5>
+    <h5>{{ item.description }}</h5>
+  </div>
+</div>
